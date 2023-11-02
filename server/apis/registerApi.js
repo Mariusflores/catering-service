@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10)
 
-
+    // generate random UUID
    const userID = crypto.randomUUID();
 
     const newUser = new User({id: userID, username: username, password: hashedPassword})
