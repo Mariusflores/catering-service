@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import session from "express-session"
 import {loginApi} from "./apis/loginApi.js";
+import {profileApi} from "apis/profileApi.js";
 
 configDotenv();
 const app = express();
@@ -24,10 +25,12 @@ app.use(
 
 //Database connection
 const mongoClient = new MongoClient(process.env.MONGODB_URL);
+
 mongoClient.connect().then( async () => {
     console.log("connected to mongodb")
     app.use("/api/register", registerApi(mongoClient.db("Catering")));
     app.use("/api/login", loginApi(mongoClient.db("Catering")))
+    app.use("/api/profile", profileApi(mongoClient.db("catering")))
 })
 
 app.use(async (req, res, next) => {

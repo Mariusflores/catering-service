@@ -21,3 +21,8 @@ body{
     display: flex;
     flex-direction : column;
 }
+
+.input-box{
+    padding:0.5em;
+    border: 5px;
+}

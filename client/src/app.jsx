@@ -1,5 +1,8 @@
 import * as React from "react";
-import {BrowserRouter, Link, Route, Router, Routes} from "react-router-dom";
+import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import {LoginPage} from "./pages/loginPage";
+import {RegisterPage} from "./pages/registerPage";
+import {ProfilePage} from "./pages/profilePage";
 
 function NavBar() {
     return <header id={"navbar"}>
@@ -15,7 +18,9 @@ function NavBar() {
         <div className={"link"}>
             <Link to={"/login"}>Login</Link>
         </div>
-
+        <div className={"link"}>
+            <Link to={"/profile"}>Login</Link>
+        </div>
 
 
     </header>;
@@ -27,8 +32,10 @@ export function App() {
         <Routes>
             <Route path={"/"} element={ <h1> Home page</h1>}/>
             <Route path={"/menu"} element={<h1>TBD</h1>}/>
-            <Route path={"/login"} element={<h1>TBD</h1>}/>
+            <Route path={"/login"} element={<LoginPage/>}/>
             <Route path={"/menu/new"} element={<h1>TBD</h1>}/>
+            <Route path={"/register"} element={<RegisterPage/>}/>
+            <Route path={"/profile"} element={<ProfilePage/>}/>
             <Route path={"*"} element={<h1>This is not the page you are looking for</h1>}/>
         </Routes>
 

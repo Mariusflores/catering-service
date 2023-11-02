@@ -1,9 +1,10 @@
 import {Router} from "express";
 import bcrypt from "bcrypt";
 
-export function loginApi(mongoClient){
+export function loginApi(db){
 
 const router = new Router();
+
 
 router.get("/", (req, res) => {
 
@@ -18,7 +19,7 @@ router.get("/", (req, res) => {
         const { username, password } = req.body;
 
         try {
-            const user = await mongoClient.collection("users").findOne({ username: username });
+            const user = await db.collection("users").findOne({ username: username });
 
             if (user && (await bcrypt.compare(password, user.password))) {
                 res.cookie("username", username, { signed: true });
