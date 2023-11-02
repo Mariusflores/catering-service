@@ -19,7 +19,7 @@ function NavBar() {
             <Link to={"/login"}>Login</Link>
         </div>
         <div className={"link"}>
-            <Link to={"/profile"}>Login</Link>
+            <Link to={"/profile"}>Profile</Link>
         </div>
 
 
@@ -30,7 +30,7 @@ export function App() {
     return <BrowserRouter>
         <NavBar/>
         <Routes>
-            <Route path={"/"} element={ <h1> Home page</h1>}/>
+            <Route path={"/"} element={<h1> Home page</h1>}/>
             <Route path={"/menu"} element={<h1>TBD</h1>}/>
             <Route path={"/login"} element={<LoginPage/>}/>
             <Route path={"/menu/new"} element={<h1>TBD</h1>}/>

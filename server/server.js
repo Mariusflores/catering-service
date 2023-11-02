@@ -7,14 +7,14 @@ import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import session from "express-session"
 import {loginApi} from "./apis/loginApi.js";
-import {profileApi} from "apis/profileApi.js";
+import {profileApi} from "./apis/profileApi.js";
 
 configDotenv();
 const app = express();
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
@@ -26,11 +26,11 @@ app.use(
 //Database connection
 const mongoClient = new MongoClient(process.env.MONGODB_URL);
 
-mongoClient.connect().then( async () => {
+mongoClient.connect().then(async () => {
     console.log("connected to mongodb")
     app.use("/api/register", registerApi(mongoClient.db("Catering")));
     app.use("/api/login", loginApi(mongoClient.db("Catering")))
-    app.use("/api/profile", profileApi(mongoClient.db("catering")))
+    app.use("/api/profile", profileApi(mongoClient.db("Catering")))
 })
 
 app.use(async (req, res, next) => {
@@ -38,7 +38,7 @@ app.use(async (req, res, next) => {
 
     if (username) {
         try {
-            const user = await mongoClient.collection('users').findOne({username: username});
+            const user = await mongoClient.db("Catering").collection("users").findOne({username: username});
 
             if (user) {
                 req.user = user;
@@ -55,9 +55,9 @@ app.use(express.static("../client/dist"))
 
 
 app.use((req, res, next) => {
-    if (req.method === "GET" && !req.path.startsWith("/api")){
+    if (req.method === "GET" && !req.path.startsWith("/api")) {
         res.sendFile(path.resolve("../client/dist/index.html"))
-    }else{
+    } else {
         next();
     }
 })
